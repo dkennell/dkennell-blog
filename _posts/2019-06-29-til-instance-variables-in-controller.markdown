@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "TIL some things about instance variables in the controller"
+title: "TIL: controller instances"
 date: 2019-06-29
 categories:
   - TIL
@@ -11,42 +11,24 @@ image-sm: https://picsum.photos/500/300?image=1003
 ---
 I was looking at an instance variable in a controller the other day and it struck me that I had no idea what actual instance it belonged to. With instance variables in a class it's easy - any instance variable that gets initialized from that code belongs to an instance of the class in which it was defined. But what about controllers?
 
-<ul>
-  <li>Actually YOLO marfa tofu shabby chic snackwave. Mumblecore hammock glossier affogato live-edge, tumblr pour-over iceland. Green juice art party flannel meggings, aesthetic kogi actually ramps ugh.</li>
-  <li>Church-key crucifix messenger bag health goth</li>
-  <li>Try-hard artisan direct trade</li>
-  <li>Cold-pressed selfies</li>
-</ul>
+For a little while, I got so turned around on this topic that I thought that maybe variables that start with `@` in controller were not actually instance variables at all, and that the `@` symbol was simply a signifier that the variable ought to be available in the view.
 
-<ol>
-  <li>Actually YOLO marfa tofu shabby chic snackwave. Mumblecore hammock glossier affogato live-edge, tumblr pour-over iceland. Green juice art party flannel meggings, aesthetic kogi actually ramps ugh.</li>
-  <li>Church-key crucifix messenger bag health goth</li>
-  <li>Try-hard artisan direct trade</li>
-  <li>Cold-pressed selfies</li>
-</ol>
+What I've come to understand now is that instance variables in the controller belong - simply enough - to an instance of the controller class.
 
-<h3>Subway tile</h3>
-Knausgaard readymade williamsburg tote bag taxidermy, DIY meditation copper mug. Farm-to-table <a href="#">street art</a> fixie, chambray vice literally four loko vaporware. Pickled taxidermy freegan, affogato pinterest sriracha vexillologist narwhal pour-over. Man braid food truck celiac +1 bicycle rights, semiotics kogi fixie biodiesel woke raw denim quinoa ugh selfies williamsburg. Sartorial af ennui bitters knausgaard, leggings kickstarter slow-carb chia sustainable hexagon. Prism 3 wolf moon occupy ramps wayfarers tumblr narwhal 90's. Woke chambray church-key before they sold out, gochujang fashion axe franzen banh mi pinterest forage kinfolk.
+So even though controllers in Rails are classes, I'd never really thought of them as classes in the same way that I'd thought of model classes as classes. In my mental map of a rails app, a model class was always a thing that gets instantiated several times, but a controller was just a path for the execution point of the code to travel through, between the `routes.rb` and the view.
 
-<figure>
-  <img src="https://picsum.photos/2000/1200?image=1003" alt="Placeholder"/>
-</figure>
+In my updated view of controller classes, controllers are, just as with models, a thing that gets instantiated. With controllers, this instantiation happens every time a route is accessed that then needs to go through a controller action.
 
-Meh food truck tofu succulents, literally waistcoat skateboard poke pop-up cold-pressed put a bird on it cliche umami cornhole kale chips. Man braid 8-bit irony selvage, butcher blog everyday carry. Af meggings tacos ugh la croix skateboard. Biodiesel paleo prism kombucha seitan drinking vinegar. Single-origin coffee lo-fi cardigan, poutine roof party bitters taxidermy post-ironic umami vaporware. Austin edison bulb leggings cliche. Literally church-key umami, vegan irony art party vinyl edison bulb selfies lumbersexual deep v fingerstache flexitarian.
+This is where things get interesting with the instance variables. Before now, my understanding of why `@` variables in the controller are available in the view could be summed up as "I dunno, just because." So as it turns out, the thing about instance variables is that they are available _anywhere_ "inside" the the object that they are an instance of. In other words, once we define an instance variable inside of a class, it's available everywhere in that class.
 
-<blockquote>
-  Sartorial af ennui bitters knausgaard, leggings kickstarter slow-carb chia sustainable hexagon. Prism 3 wolf moon occupy ramps wayfarers tumblr narwhal 90's.
-  <cite>Man braid</cite>
-</blockquote>
+So the creators of rails used this feature of instance variables to their advantage to pass information from the controller to the view - because the execution of your view is all happening _inside_ the execution of your controller action! That's why instance variables are available to us there - the controller does not "hand off" the variable the view - the code in the view is being rendered _as part of_ a method call on an instance of a controller class.
 
-<h4>Subway tile</h4>
-Slow-carb cornhole crucifix thundercats intelligentsia. Trust fund bushwick la croix, 8-bit hell of ennui chicharrones vegan master cleanse tilde subway tile bespoke roof party. Next level celiac bushwick coloring book subway tile. Lyft knausgaard four loko, twee sustainable narwhal letterpress PBR&B kombucha paleo mixtape helvetica. Photo booth gastropub yr sartorial kitsch godard, etsy hella literally kale chips. Mixtape hella readymade selvage taxidermy cornhole umami four dollar toast, yr seitan blog. Butcher whatever copper mug, keffiyeh authentic humblebrag irony distillery williamsburg fingerstache helvetica keytar glossier.
+One interesting thing about passing values from controller actions to views this way is that it's not really necessary - there are other ways of doing it. Namely, using locals.
 
-<figure>
-  <img src="https://picsum.photos/2000/1200?image=1003" alt="Placeholder"/>
-  <figcaption>Gentrify cray pug authentic, cliche listicle actually subway tile woke semiotics af.</figcaption>
-</figure>
+```
+render locals: { resource: "Some text"}
+```
 
-Gluten-free la croix activated charcoal tousled, brunch semiotics sartorial mustache hashtag. Leggings pabst waistcoat quinoa cliche pinterest letterpress, flannel poke forage +1 retro snackwave humblebrag schlitz. Wayfarers chartreuse occupy, direct trade farm-to-table irony blog activated charcoal shoreditch fam live-edge. Intelligentsia scenester gochujang gentrify portland offal. Pop-up schlitz hot chicken humblebrag, tattooed ugh neutra yr street art normcore la croix thundercats lo-fi. Gentrify cray pug authentic, cliche listicle actually subway tile woke semiotics af. Trust fund edison bulb biodiesel listicle, tattooed cornhole fashion axe blue bottle XOXO leggings pop-up vexillologist.
+The only reason, as far as I can tell, that we use instance variables instead is because they use fewer characters and look cleaner than passing locals this way. The result, however, is that instead of simply passing values to the view, what we are actually doing is simply making a variable 100% globally available until that particular controller action completes - and it doesn't complete until you move on to another controller action. In other words, that variable is available in any code that gets run by that controller action, as well as any helpers that get run in the view. It's not good namespacing. At all. And there are [many](https://medium.com/@eric.programmer/removing-the-hack-in-rails-controllers-52396463c40d) who would prefer the rails standard was to use locals instead of instance variables when it comes to the controller.
 
-Pinterest cold-pressed selfies man bun twee williamsburg irony, art party snackwave tumeric knausgaard marfa polaroid chambray. PBR&B semiotics selvage brooklyn hexagon cray. Edison bulb offal vice, squid humblebrag 90's kitsch williamsburg chicharrones austin. Poke 3 wolf moon selfies banh mi farm-to-table raclette. +1 roof party polaroid williamsburg, chicharrones retro bicycle rights portland literally selfies selvage lyft single-origin coffee aesthetic kale chips. Blog yr la croix four loko beard. Gentrify 8-bit keytar, fam kombucha poke quinoa green juice schlitz coloring book.
+In short, controllers get instantiated, everything that happens in a view happens as part of the execution of a controller action, instance variables are very powerful, and instance varibles in the controller are controversial. TIL!
