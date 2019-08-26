@@ -1,21 +1,21 @@
 # Site/SEO settings
-email: 
+email:
 permalink: /:year/:month/:day/:title/
-google_analytics: 
+google_analytics:
 
 title: David Kennell
 description:
 url: ""
 baseurl: ""
-twitter_username: 
-default_img: 
+twitter_username:
+default_img:
 
 # Profile settings
-name: 
-profile_img: 
-profile: 
+name: David Kennell
+profile_img: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0d783665-8f74-4670-88e5-b0f7a57554a3/ddevw2i-8a39473d-b17b-4364-822a-345b397ccc1a.jpg/v1/fill/w_1003,h_796,q_70,strp/untitled_by_dkennell_ddevw2i-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAxNiIsInBhdGgiOiJcL2ZcLzBkNzgzNjY1LThmNzQtNDY3MC04OGU1LWIwZjdhNTc1NTRhM1wvZGRldncyaS04YTM5NDczZC1iMTdiLTQzNjQtODIyYS0zNDViMzk3Y2NjMWEuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.UdKGj03sbqf0XW6WKQJH-VLWBhfZHjwcjjUcjW5KWg4
+profile: David Kennell is a web developer, specializing in Ruby on Rails, Javascript and React. His current professional interests are in object oriented design and assembly language. In his free time he enjoys not making up a list of hobbies for his blog bio. :D
 social:
-  github: 
+  github: https://github.com/dkennell
 
 # Build settings
 markdown: kramdown
