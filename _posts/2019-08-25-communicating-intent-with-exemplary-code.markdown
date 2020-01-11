@@ -35,6 +35,6 @@ end
 This is a very interesting error. It gets raised not in the event of "something going wrong with the application", but rather
 "something going wrong with the code we're writing."
 
-At this point we have made our intent crystal clear to future developers. _All_ child classes of `A` _must_ have a `foobar` method. Setting this rule in stone sets us up for good things in the future. If the implementations of `foobar` are different in all of the childclasses, but they all get called under the same circumstances, we can eventually move the call of `foobar` up into `A`. This could not be done if there were methods that didn't implement `foobar`.
+At this point we have made our intent crystal clear to future developers. _All_ child classes of `A` _must_ have a `foobar` method. Setting this rule in stone sets us up for good things in the future. If the implementations of `foobar` are different in all of the childclasses, but they all get called under the same circumstances, we can eventually move the call of `foobar` up into `A`. This could not be done if there were classes that didn't implement `foobar`.
 
 In general, if you have a good idea about _how_ certain parts of your codebase ought to be expanded in the future, don't be afraid to bake some of those opinions into your classes. Make your code exemplary!
