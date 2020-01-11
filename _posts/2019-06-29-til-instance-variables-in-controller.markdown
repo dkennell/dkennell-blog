@@ -7,7 +7,6 @@ categories:
   - Rails
 description:
 image: https://greatruns.com/wp-content/uploads/2017/09/Gyre-1999-NCMA_611_407_s.jpg
-image-sm: https://picsum.photos/500/300?image=1003
 ---
 I was looking at an instance variable in a controller the other day and it struck me that I had no idea what actual instance it belonged to. With instance variables in a class it's easy - any instance variable that gets initialized from that code belongs to an instance of the class in which it was defined. But what about controllers?
 

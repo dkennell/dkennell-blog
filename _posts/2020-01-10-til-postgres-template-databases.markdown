@@ -7,7 +7,6 @@ categories:
   - Postgres
 description:
 image: http://www.cuttingedgestencils.com/blog/wp-content/uploads/2016/08/hamsa-hand-stencil-how-to-tutorial-canvas-stenciling-mandala-530x297.jpg
-image-sm: https://picsum.photos/500/300?image=1003
 ---
 Today I was playing around in my postgres CLI, making sure I knew what all of the listed databases were for.
 
