@@ -50,39 +50,40 @@ AWS provides a service specifically for the development of backends for mobile
 applications (the phrase 'backend' here includes asset management). The service is
 called [AWS Amplify](https://aws.amazon.com/amplify/) and it's a Backend-as-a-Service (BaaS).
 It's free to mess around with and it provides your app with a CLI and API that
-can be used in conjunction to, among other things, send files to your Amazon S3 bucket.
+can be used to, among other things, send files to your Amazon S3 bucket.
 
 Once you go through the basic setup for Amplify using the The Amplify CLI, a file
-called `aws-exports.s` will be generated in the root directory of your project.
+called `aws-exports.js` will be generated in the root directory of your project.
 This is essentially a configuration file that tells Amplify which server to send/retrieve
 data from. Once that's done, the Amplify npm package gives you access to an module called
 `Storage`. It's crazy simple to use. You simply call `.put` on the module
-and pass in the filename that you want the file to have as the first argument, and
-the actual thing you want stored as the second. I was quickly able to send a textfile
+and pass 1) in the filename that you want the file to have, and
+2) the actual thing you want stored. I was quickly able to send a textfile
 to my S3 bucket. Awesome.
 
 Sending anything beyond that became a challenge, though. I have only the fuzziest
 of understandings of how the file system works in iOS, and where things are actually
 stored. (My phone is an iPhone so that's all I'm really concerned about right now.)
-I actually did a bit of reading about that. Turns out all native applications are
+I actually did a bit of reading about that. Turns out all native iOS applications are
 given their own sandbox and their own storage and are not allowed to reach out into
 the broader iOS system at all, unless it's through very specific, predetermined,
 Apple-built APIs. That's why third-party apps can access your photo roll, for example, but
-not your settings. I didn't really end up using that info but hey, it was interesting.
+not your settings. I wasn't immediately sure what to do with that information, but it
+was still interesting.
 
-One thing I had to get figured out was my state management. I wanted one button to
+One thing I knew I had to get figured out was my state management. I wanted one button to
 start recording and another button to stop recording and upload the audio file. As
 much as I would've liked to avoid using state, there was no getting around it. I
 needed to have two listeners going who both affected the same `recordingInstance`
-object in different ways. I needed to be able to save it in state.
+object in different ways. I needed to be able to save that object in state.
 
 The Expo Audio API is, as I have mentioned, great. However, it's been a minute since
 I've done any heavy React work, and things change fast in that ecosystem. One thing
 I learned is that there's been a big move away from class components to functional, to
 the point that create-react-app and create-react-native-app [now
-make App.js a functional component, not a class-based component by default](https://www.reddit.com/r/reactjs/comments/blad60/why_react_changed_from_class_component_to/). Ways of managing state have changed
-too, with a sharp move away from the  `setState` method available in classes in favor
-of React Hooks and many other methods.
+make App.js a functional component, not a class-based component](https://www.reddit.com/r/reactjs/comments/blad60/why_react_changed_from_class_component_to/) by default. Ways of managing state have changed
+too, with a sharp move away from the  `setState` method available in Class components
+in favor of React Hooks and many other methods.
 
 This had me kind of turned around for a while. I honestly am not looking to learn a
 completely new way to manage state right now, so I tried to make App.js a class
@@ -124,5 +125,5 @@ illustrates how little success I expected to have with this my first time throug
 We're making forward progress, though! Next, I'll have to see if I can figure out
 a more sophisticated way of storing the files in S3, and see if I can retrieve and
 play them as well. Eventually, I'd love to get a fully featured cloud-enabled voice
-recorder built. That would be a good enough to feature on my Github page. Anyway, you
-can check out the repro for this most recent project [here](https://github.com/dkennell/myAmplifyProject). Thanks for reading!
+recorder built. That would be a good enough project to feature on my Github profile. Anyway, you
+can check out the repro for this recent project [here](https://github.com/dkennell/myAmplifyProject). Thanks for reading!
