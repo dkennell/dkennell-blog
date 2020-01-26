@@ -5,6 +5,7 @@ date: 2019-06-29
 categories:
   - TIL
   - Rails
+  - Technical
 description:
 image: https://greatruns.com/wp-content/uploads/2017/09/Gyre-1999-NCMA_611_407_s.jpg
 ---
