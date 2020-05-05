@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Small victories: sending a react-native voice recording to AWS"
+title: "Sending a react-native voice recording to AWS"
 date: 2020-01-26
 categories:
   - React-Native
