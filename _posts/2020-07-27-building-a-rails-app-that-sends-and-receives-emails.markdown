@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building a Rails app that sends and receives emails"
-date: 2020-07-13
+date: 2020-07-27
 categories:
   - Rails
   - Email
